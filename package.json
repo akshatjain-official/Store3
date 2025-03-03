@@ -9,5 +9,16 @@
   },
   "dependencies": {
     "@sap/cds": "^8.7.0"
-  }
+  },
+  "cds": {
+    "requires": {
+      "CATALOG_SERVICE": {
+        "kind": "odata",
+        "model": "srv/external/CATALOG_SERVICE"
+      }
+    }
+  },
+  "sapux": [
+    "app/project1"
+  ]
 }

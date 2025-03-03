@@ -31,7 +31,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+   			<groupId>com.sap.cds</groupId>
+   			<artifactId>sdm</artifactId>
+   			<version>1.0.0</version>
+		</dependency>
 		<dependency>
 			<groupId>com.sap.cds</groupId>
 			<artifactId>cds-adapter-odata-v4</artifactId>

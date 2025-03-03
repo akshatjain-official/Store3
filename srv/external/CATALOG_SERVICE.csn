@@ -1,0 +1,1529 @@
+{
+ "meta": {
+  "creator": "cds-dk 7.9.8"
+ },
+ "$version": "2.0",
+ "definitions": {
+  "CATALOG_SERVICE.submitOrder": {
+   "kind": "action",
+   "@cds.external": true,
+   "params": {
+    "book": {
+     "type": "cds.UUID",
+     "@Common.SemanticObject": "Books",
+     "@Common.Text": {
+      "=": "title"
+     },
+     "@Common.Text.@UI.TextArrangement": {
+      "#": "TextOnly"
+     },
+     "@Common.Label": "ID"
+    },
+    "quantity": {
+     "type": "cds.Integer"
+    }
+   },
+   "returns": {
+    "type": "CATALOG_SERVICE.return_CatalogService_submitOrder"
+   }
+  },
+  "CATALOG_SERVICE.ListOfBooks": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "createdAt": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Immutable": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Created On"
+    },
+    "modifiedAt": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Changed On"
+    },
+    "ID": {
+     "key": true,
+     "type": "cds.UUID",
+     "notNull": true,
+     "@Common.SemanticObject": "Books",
+     "@Common.Text": {
+      "=": "title"
+     },
+     "@Common.Text.@UI.TextArrangement": {
+      "#": "TextOnly"
+     },
+     "@Common.Label": "ID",
+     "@Core.ComputedDefaultValue": true
+    },
+    "title": {
+     "type": "cds.String",
+     "length": 111,
+     "@Common.Label": "Title",
+     "@Common.FieldControl": {
+      "#": "Mandatory"
+     }
+    },
+    "author": {
+     "type": "cds.String",
+     "length": 111,
+     "@Common.Label": "Name",
+     "@Common.FieldControl": {
+      "#": "Mandatory"
+     }
+    },
+    "genre": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Genres",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "genre",
+        "ID"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "genre_ID"
+       ]
+      }
+     ],
+     "@Common.Label": "Genre"
+    },
+    "genre_ID": {
+     "type": "cds.Integer",
+     "@Common.Text": {
+      "=": "genre/name"
+     },
+     "@Common.Text.@UI.TextArrangement": {
+      "#": "TextOnly"
+     },
+     "@Common.Label": "Genre",
+     "@Common.ValueList": {
+      "$Type": "Common.ValueListType",
+      "Label": "Genre",
+      "CollectionPath": "Genres",
+      "Parameters": [
+       {
+        "$Type": "Common.ValueListParameterInOut",
+        "LocalDataProperty": {
+         "=": "genre_ID"
+        },
+        "ValueListProperty": "ID"
+       },
+       {
+        "$Type": "Common.ValueListParameterDisplayOnly",
+        "ValueListProperty": "name"
+       }
+      ]
+     }
+    },
+    "stock": {
+     "type": "cds.Integer",
+     "@Common.Label": "Stock"
+    },
+    "price": {
+     "type": "cds.Decimal",
+     "@Measures.ISOCurrency": {
+      "=": "currency_code"
+     },
+     "@Common.Label": "Price"
+    },
+    "currency": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Currencies",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "currency",
+        "code"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "currency_code"
+       ]
+      }
+     ],
+     "@Common.Label": "Currency",
+     "doc": "A currency code as specified in ISO 4217"
+    },
+    "currency_code": {
+     "type": "cds.String",
+     "length": 3,
+     "@Common.Label": "Currency",
+     "@Common.ValueList": {
+      "$Type": "Common.ValueListType",
+      "Label": "Currency",
+      "CollectionPath": "Currencies",
+      "Parameters": [
+       {
+        "$Type": "Common.ValueListParameterInOut",
+        "LocalDataProperty": {
+         "=": "currency_code"
+        },
+        "ValueListProperty": "code"
+       },
+       {
+        "$Type": "Common.ValueListParameterDisplayOnly",
+        "ValueListProperty": "name"
+       }
+      ]
+     },
+     "doc": "A currency code as specified in ISO 4217"
+    },
+    "image": {
+     "type": "cds.LargeBinary",
+     "@Core.MediaType": "image/png",
+     "@odata.Type": "Edm.Stream",
+     "@Common.Label": "{i18n>Image}"
+    },
+    "attachments": {
+     "type": "cds.Composition",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Books_attachments",
+     "cardinality": {
+      "max": "*"
+     }
+    },
+    "texts": {
+     "type": "cds.Composition",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Books_texts",
+     "cardinality": {
+      "max": "*"
+     }
+    },
+    "localized": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Books_texts",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    }
+   },
+   "@UI.HeaderInfo": {
+    "$Type": "UI.HeaderInfoType",
+    "TypeName": "Book",
+    "TypeNamePlural": "Books",
+    "Description": {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "author"
+     }
+    },
+    "Title": {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "title"
+     }
+    }
+   },
+   "@UI.HeaderFacets": [
+    {
+     "$Type": "UI.ReferenceFacet",
+     "Label": "Description",
+     "Target": {
+      "=": "@UI.FieldGroup#Descr"
+     }
+    }
+   ],
+   "@UI.Facets": [
+    {
+     "$Type": "UI.ReferenceFacet",
+     "Label": "{i18n>Details}",
+     "Target": {
+      "=": "@UI.FieldGroup#Price"
+     }
+    }
+   ],
+   "@UI.FieldGroup#Descr": {
+    "$Type": "UI.FieldGroupType",
+    "Data": [
+     {
+      "$Type": "UI.DataField",
+      "Value": {
+       "=": "descr"
+      }
+     }
+    ]
+   },
+   "@UI.FieldGroup#Price": {
+    "$Type": "UI.FieldGroupType",
+    "Data": [
+     {
+      "$Type": "UI.DataField",
+      "Value": {
+       "=": "price"
+      }
+     },
+     {
+      "$Type": "UI.DataField",
+      "Value": {
+       "=": "currency/symbol"
+      },
+      "Label": "Currency"
+     }
+    ]
+   },
+   "@UI.SelectionFields": [
+    "ID",
+    "price",
+    "currency_code"
+   ],
+   "@UI.LineItem": [
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "ID"
+     },
+     "Label": "Title"
+    },
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "author"
+     },
+     "Label": "Author"
+    },
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "genre/name"
+     }
+    },
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "price"
+     }
+    },
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "currency/symbol"
+     }
+    }
+   ],
+   "@UI.Identification": [
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "title"
+     }
+    }
+   ],
+   "@Common.SemanticKey": [
+    "ID"
+   ],
+   "doc": "For displaying lists of Books",
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.UpdateRestrictions.Updatable": false
+  },
+  "CATALOG_SERVICE.Books": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "createdAt": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Immutable": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Created On"
+    },
+    "modifiedAt": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Changed On"
+    },
+    "ID": {
+     "key": true,
+     "type": "cds.UUID",
+     "notNull": true,
+     "@Common.SemanticObject": "Books",
+     "@Common.Text": {
+      "=": "title"
+     },
+     "@Common.Text.@UI.TextArrangement": {
+      "#": "TextOnly"
+     },
+     "@Common.Label": "ID",
+     "@Core.ComputedDefaultValue": true
+    },
+    "title": {
+     "type": "cds.String",
+     "length": 111,
+     "@Common.Label": "Title",
+     "@Common.FieldControl": {
+      "#": "Mandatory"
+     }
+    },
+    "descr": {
+     "type": "cds.String",
+     "length": 1111,
+     "@UI.MultiLineText": true,
+     "@Common.Label": "Description"
+    },
+    "author": {
+     "type": "cds.String",
+     "length": 111,
+     "@Common.Label": "Name",
+     "@Common.FieldControl": {
+      "#": "Mandatory"
+     }
+    },
+    "genre": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Genres",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "genre",
+        "ID"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "genre_ID"
+       ]
+      }
+     ],
+     "@Common.Label": "Genre"
+    },
+    "genre_ID": {
+     "type": "cds.Integer",
+     "@Common.Text": {
+      "=": "genre/name"
+     },
+     "@Common.Text.@UI.TextArrangement": {
+      "#": "TextOnly"
+     },
+     "@Common.Label": "Genre",
+     "@Common.ValueList": {
+      "$Type": "Common.ValueListType",
+      "Label": "Genre",
+      "CollectionPath": "Genres",
+      "Parameters": [
+       {
+        "$Type": "Common.ValueListParameterInOut",
+        "LocalDataProperty": {
+         "=": "genre_ID"
+        },
+        "ValueListProperty": "ID"
+       },
+       {
+        "$Type": "Common.ValueListParameterDisplayOnly",
+        "ValueListProperty": "name"
+       }
+      ]
+     }
+    },
+    "stock": {
+     "type": "cds.Integer",
+     "@Common.Label": "Stock"
+    },
+    "price": {
+     "type": "cds.Decimal",
+     "@Measures.ISOCurrency": {
+      "=": "currency_code"
+     },
+     "@Common.Label": "Price"
+    },
+    "currency": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Currencies",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "currency",
+        "code"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "currency_code"
+       ]
+      }
+     ],
+     "@Common.Label": "Currency",
+     "doc": "A currency code as specified in ISO 4217"
+    },
+    "currency_code": {
+     "type": "cds.String",
+     "length": 3,
+     "@Common.Label": "Currency",
+     "@Common.ValueList": {
+      "$Type": "Common.ValueListType",
+      "Label": "Currency",
+      "CollectionPath": "Currencies",
+      "Parameters": [
+       {
+        "$Type": "Common.ValueListParameterInOut",
+        "LocalDataProperty": {
+         "=": "currency_code"
+        },
+        "ValueListProperty": "code"
+       },
+       {
+        "$Type": "Common.ValueListParameterDisplayOnly",
+        "ValueListProperty": "name"
+       }
+      ]
+     },
+     "doc": "A currency code as specified in ISO 4217"
+    },
+    "image": {
+     "type": "cds.LargeBinary",
+     "@Core.MediaType": "image/png",
+     "@odata.Type": "Edm.Stream",
+     "@Common.Label": "{i18n>Image}"
+    },
+    "attachments": {
+     "type": "cds.Composition",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Books_attachments",
+     "cardinality": {
+      "max": "*"
+     }
+    },
+    "texts": {
+     "type": "cds.Composition",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Books_texts",
+     "cardinality": {
+      "max": "*"
+     }
+    },
+    "localized": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Books_texts",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    }
+   },
+   "@UI.HeaderInfo": {
+    "$Type": "UI.HeaderInfoType",
+    "TypeName": "Book",
+    "TypeNamePlural": "Books",
+    "Description": {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "author"
+     }
+    },
+    "Title": {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "title"
+     }
+    }
+   },
+   "@UI.HeaderFacets": [
+    {
+     "$Type": "UI.ReferenceFacet",
+     "Label": "Description",
+     "Target": {
+      "=": "@UI.FieldGroup#Descr"
+     }
+    }
+   ],
+   "@UI.Facets": [
+    {
+     "$Type": "UI.ReferenceFacet",
+     "Label": "{i18n>Details}",
+     "Target": {
+      "=": "@UI.FieldGroup#Price"
+     }
+    }
+   ],
+   "@UI.FieldGroup#Descr": {
+    "$Type": "UI.FieldGroupType",
+    "Data": [
+     {
+      "$Type": "UI.DataField",
+      "Value": {
+       "=": "descr"
+      }
+     }
+    ]
+   },
+   "@UI.FieldGroup#Price": {
+    "$Type": "UI.FieldGroupType",
+    "Data": [
+     {
+      "$Type": "UI.DataField",
+      "Value": {
+       "=": "price"
+      }
+     },
+     {
+      "$Type": "UI.DataField",
+      "Value": {
+       "=": "currency/symbol"
+      },
+      "Label": "Currency"
+     }
+    ]
+   },
+   "@UI.SelectionFields": [
+    "ID",
+    "price",
+    "currency_code"
+   ],
+   "@UI.LineItem": [
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "ID"
+     },
+     "Label": "Title"
+    },
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "author"
+     },
+     "Label": "Author"
+    },
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "genre/name"
+     }
+    },
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "price"
+     }
+    },
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "currency/symbol"
+     }
+    }
+   ],
+   "@UI.Identification": [
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "title"
+     }
+    }
+   ],
+   "@Common.SemanticKey": [
+    "ID"
+   ],
+   "doc": "For display in details pages",
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.UpdateRestrictions.Updatable": false
+  },
+  "CATALOG_SERVICE.Genres": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "name": {
+     "type": "cds.String",
+     "length": 255,
+     "@Common.Label": "Genre"
+    },
+    "descr": {
+     "type": "cds.String",
+     "length": 1000,
+     "@Common.Label": "Description"
+    },
+    "ID": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true,
+     "@Common.Text": {
+      "=": "name"
+     },
+     "@Common.Text.@UI.TextArrangement": {
+      "#": "TextOnly"
+     },
+     "@Common.Label": "ID"
+    },
+    "parent": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Genres",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "parent",
+        "ID"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "parent_ID"
+       ]
+      }
+     ]
+    },
+    "parent_ID": {
+     "type": "cds.Integer",
+     "@Common.ValueList": {
+      "$Type": "Common.ValueListType",
+      "Label": "Genres",
+      "CollectionPath": "Genres",
+      "Parameters": [
+       {
+        "$Type": "Common.ValueListParameterInOut",
+        "LocalDataProperty": {
+         "=": "parent_ID"
+        },
+        "ValueListProperty": "ID"
+       },
+       {
+        "$Type": "Common.ValueListParameterDisplayOnly",
+        "ValueListProperty": "name"
+       }
+      ]
+     }
+    },
+    "children": {
+     "type": "cds.Composition",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Genres",
+     "cardinality": {
+      "max": "*"
+     }
+    },
+    "texts": {
+     "type": "cds.Composition",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Genres_texts",
+     "cardinality": {
+      "max": "*"
+     }
+    },
+    "localized": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Genres_texts",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "localized",
+        "ID"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "ID"
+       ]
+      }
+     ]
+    }
+   },
+   "@Common.SemanticKey": [
+    "name"
+   ],
+   "@UI.SelectionFields": [
+    "name"
+   ],
+   "@UI.LineItem": [
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "name"
+     }
+    },
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "parent/name"
+     },
+     "Label": "Main Genre"
+    }
+   ],
+   "@UI.Identification": [
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "name"
+     }
+    }
+   ],
+   "@UI.HeaderInfo": {
+    "$Type": "UI.HeaderInfoType",
+    "TypeName": "Genre",
+    "TypeNamePlural": "{i18n>Genres}",
+    "Title": {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "name"
+     }
+    },
+    "Description": {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "ID"
+     }
+    }
+   },
+   "@UI.Facets": [
+    {
+     "$Type": "UI.ReferenceFacet",
+     "Label": "{i18n>SubGenres}",
+     "Target": {
+      "=": "children.@UI.LineItem"
+     }
+    }
+   ],
+   "doc": "Hierarchically organized Code List for Genres"
+  },
+  "CATALOG_SERVICE.Currencies": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "name": {
+     "type": "cds.String",
+     "length": 255,
+     "@Common.Label": "Name"
+    },
+    "descr": {
+     "type": "cds.String",
+     "length": 1000,
+     "@Common.Label": "Description"
+    },
+    "code": {
+     "key": true,
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.Text": {
+      "=": "name"
+     },
+     "@Common.Label": "Currency Code"
+    },
+    "symbol": {
+     "type": "cds.String",
+     "length": 5,
+     "@Common.Label": "Currency"
+    },
+    "minorUnit": {
+     "type": "cds.Integer",
+     "@Common.Label": "Currency Minor Unit Fractions"
+    },
+    "texts": {
+     "type": "cds.Composition",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Currencies_texts",
+     "cardinality": {
+      "max": "*"
+     }
+    },
+    "localized": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Currencies_texts",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "localized",
+        "code"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "code"
+       ]
+      }
+     ]
+    }
+   },
+   "@Common.SemanticKey": [
+    "code"
+   ],
+   "@UI.SelectionFields": [
+    "name",
+    "descr"
+   ],
+   "@UI.LineItem": [
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "descr"
+     }
+    },
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "symbol"
+     }
+    },
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "code"
+     }
+    }
+   ],
+   "@UI.HeaderInfo": {
+    "$Type": "UI.HeaderInfoType",
+    "TypeName": "Currency",
+    "TypeNamePlural": "{i18n>Currencies}",
+    "Title": {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "descr"
+     }
+    },
+    "Description": {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "code"
+     }
+    }
+   },
+   "@UI.Facets": [
+    {
+     "$Type": "UI.ReferenceFacet",
+     "Label": "{i18n>Details}",
+     "Target": {
+      "=": "@UI.FieldGroup#Details"
+     }
+    }
+   ],
+   "@UI.FieldGroup#Details": {
+    "$Type": "UI.FieldGroupType",
+    "Data": [
+     {
+      "$Type": "UI.DataField",
+      "Value": {
+       "=": "name"
+      }
+     },
+     {
+      "$Type": "UI.DataField",
+      "Value": {
+       "=": "symbol"
+      }
+     },
+     {
+      "$Type": "UI.DataField",
+      "Value": {
+       "=": "code"
+      }
+     },
+     {
+      "$Type": "UI.DataField",
+      "Value": {
+       "=": "descr"
+      }
+     }
+    ]
+   },
+   "@UI.Identification": [
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "name"
+     }
+    }
+   ],
+   "doc": "Code list for currencies See https://cap.cloud.sap/docs/cds/common#entity-currencies"
+  },
+  "CATALOG_SERVICE.Statuses": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "code": {
+     "key": true,
+     "type": "cds.LargeString",
+     "notNull": true,
+     "@Validation.AllowedValues": [
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "Unscanned",
+       "Value": "Unscanned"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "Scanning",
+       "Value": "Scanning"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "Clean",
+       "Value": "Clean"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "Infected",
+       "Value": "Infected"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "Failed",
+       "Value": "Failed"
+      }
+     ]
+    },
+    "text": {
+     "type": "cds.String",
+     "length": 255
+    },
+    "texts": {
+     "type": "cds.Composition",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Statuses_texts",
+     "cardinality": {
+      "max": "*"
+     }
+    },
+    "localized": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Statuses_texts",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "localized",
+        "code"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "code"
+       ]
+      }
+     ]
+    }
+   },
+   "@Capabilities.DeleteRestrictions.Deletable": false,
+   "@Capabilities.InsertRestrictions.Insertable": false,
+   "@Capabilities.UpdateRestrictions.Updatable": false
+  },
+  "CATALOG_SERVICE.Books_attachments": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "up_": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Books",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "up_",
+        "ID"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "up__ID"
+       ]
+      }
+     ]
+    },
+    "up__ID": {
+     "key": true,
+     "type": "cds.UUID",
+     "notNull": true
+    },
+    "ID": {
+     "key": true,
+     "type": "cds.UUID",
+     "notNull": true,
+     "@Core.ComputedDefaultValue": true
+    },
+    "createdAt": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Immutable": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Created On"
+    },
+    "createdBy": {
+     "type": "cds.String",
+     "length": 255,
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Immutable": true,
+     "@Core.Computed": true,
+     "doc": "A user's unique ID",
+     "@Common.Label": "Created By"
+    },
+    "modifiedAt": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Changed On"
+    },
+    "modifiedBy": {
+     "type": "cds.String",
+     "length": 255,
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Computed": true,
+     "doc": "A user's unique ID",
+     "@Common.Label": "Changed By"
+    },
+    "content": {
+     "type": "cds.LargeBinary",
+     "@Core.MediaType": {
+      "=": "mimeType"
+     },
+     "@odata.Type": "Edm.Stream",
+     "@Core.ContentDisposition": {
+      "$Type": "Core.ContentDispositionType",
+      "Filename": {
+       "=": "fileName"
+      },
+      "Type": "inline"
+     },
+     "@Common.Label": "{i18n>Attachment}"
+    },
+    "mimeType": {
+     "type": "cds.LargeString",
+     "@UI.Hidden": true,
+     "@Core.IsMediaType": true,
+     "@Common.Label": "Mime Type"
+    },
+    "fileName": {
+     "type": "cds.LargeString",
+     "@Common.Label": "{i18n>Filename}"
+    },
+    "contentId": {
+     "type": "cds.LargeString",
+     "@UI.Hidden": true,
+     "@Core.Computed": true
+    },
+    "status": {
+     "type": "cds.LargeString",
+     "@Common.Text": {
+      "=": "statusText/text"
+     },
+     "@Common.Text.@UI.TextArrangement": {
+      "#": "TextOnly"
+     },
+     "@Common.ValueList": {
+      "$Type": "Common.ValueListType",
+      "Label": "Status",
+      "CollectionPath": "Statuses",
+      "Parameters": [
+       {
+        "$Type": "Common.ValueListParameterInOut",
+        "LocalDataProperty": {
+         "=": "status"
+        },
+        "ValueListProperty": "code"
+       },
+       {
+        "$Type": "Common.ValueListParameterDisplayOnly",
+        "ValueListProperty": "text"
+       }
+      ]
+     },
+     "@Common.Label": "Status",
+     "@UI.Hidden": true,
+     "@Core.Computed": true,
+     "@Validation.AllowedValues": [
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "Unscanned",
+       "Value": "Unscanned"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "Scanning",
+       "Value": "Scanning"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "Clean",
+       "Value": "Clean"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "Infected",
+       "Value": "Infected"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "Failed",
+       "Value": "Failed"
+      }
+     ]
+    },
+    "scannedAt": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@UI.Hidden": true,
+     "@Core.Computed": true
+    },
+    "note": {
+     "type": "cds.LargeString",
+     "@Common.Label": "{i18n>Note}"
+    },
+    "folderId": {
+     "type": "cds.LargeString",
+     "@UI.Hidden": true
+    },
+    "repositoryId": {
+     "type": "cds.LargeString",
+     "@UI.Hidden": true
+    },
+    "objectId": {
+     "type": "cds.LargeString",
+     "@UI.Hidden": true
+    },
+    "statusText": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "CATALOG_SERVICE.Statuses",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "statusText",
+        "code"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "status"
+       ]
+      }
+     ]
+    }
+   },
+   "@UI.HeaderInfo": {
+    "$Type": "UI.HeaderInfoType",
+    "TypeName": "{i18n>Attachment}",
+    "TypeNamePlural": "{i18n>Attachments}"
+   },
+   "@UI.LineItem": [
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "fileName"
+     },
+     "@HTML5.CssDefaults": {
+      "$Type": "HTML5.CssDefaultsType",
+      "width": "20%"
+     }
+    },
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "content"
+     },
+     "@HTML5.CssDefaults": {
+      "$Type": "HTML5.CssDefaultsType",
+      "width": "20%"
+     }
+    },
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "createdAt"
+     },
+     "@HTML5.CssDefaults": {
+      "$Type": "HTML5.CssDefaultsType",
+      "width": "20%"
+     }
+    },
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "createdBy"
+     },
+     "@HTML5.CssDefaults": {
+      "$Type": "HTML5.CssDefaultsType",
+      "width": "20%"
+     }
+    },
+    {
+     "$Type": "UI.DataField",
+     "Value": {
+      "=": "note"
+     },
+     "@HTML5.CssDefaults": {
+      "$Type": "HTML5.CssDefaultsType",
+      "width": "20%"
+     }
+    }
+   ],
+   "@UI.MediaResource": {
+    "$Type": "UI.MediaResourceType",
+    "Stream": {
+     "=": "content"
+    }
+   },
+   "@Common.SideEffects#ContentChanged": {
+    "$Type": "Common.SideEffectsType",
+    "SourceProperties": [
+     "content"
+    ],
+    "TargetProperties": [
+     "status"
+    ]
+   },
+   "doc": "Aspect to capture changes by user and name See https://cap.cloud.sap/docs/cds/common#aspect-managed"
+  },
+  "CATALOG_SERVICE.Books_texts": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "ID_texts": {
+     "key": true,
+     "type": "cds.UUID",
+     "notNull": true,
+     "@Core.ComputedDefaultValue": true
+    },
+    "locale": {
+     "type": "cds.String",
+     "length": 14,
+     "@Common.Label": "Language Code",
+     "doc": "Type for a language code"
+    },
+    "ID": {
+     "type": "cds.UUID",
+     "@Common.SemanticObject": "Books",
+     "@Common.Text": {
+      "=": "title"
+     },
+     "@Common.Text.@UI.TextArrangement": {
+      "#": "TextOnly"
+     },
+     "@Common.Label": "ID"
+    },
+    "title": {
+     "type": "cds.String",
+     "length": 111,
+     "@Common.Label": "Title",
+     "@Common.FieldControl": {
+      "#": "Mandatory"
+     }
+    },
+    "descr": {
+     "type": "cds.String",
+     "length": 1111,
+     "@UI.MultiLineText": true,
+     "@Common.Label": "Description"
+    }
+   }
+  },
+  "CATALOG_SERVICE.Genres_texts": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "locale": {
+     "key": true,
+     "type": "cds.String",
+     "length": 14,
+     "notNull": true,
+     "@Common.Label": "Language Code",
+     "doc": "Type for a language code"
+    },
+    "name": {
+     "type": "cds.String",
+     "length": 255,
+     "@Common.Label": "Genre"
+    },
+    "descr": {
+     "type": "cds.String",
+     "length": 1000,
+     "@Common.Label": "Description"
+    },
+    "ID": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true,
+     "@Common.Text": {
+      "=": "name"
+     },
+     "@Common.Text.@UI.TextArrangement": {
+      "#": "TextOnly"
+     },
+     "@Common.Label": "ID"
+    }
+   }
+  },
+  "CATALOG_SERVICE.Currencies_texts": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "locale": {
+     "key": true,
+     "type": "cds.String",
+     "length": 14,
+     "notNull": true,
+     "@Common.Label": "Language Code",
+     "doc": "Type for a language code"
+    },
+    "name": {
+     "type": "cds.String",
+     "length": 255,
+     "@Common.Label": "Name"
+    },
+    "descr": {
+     "type": "cds.String",
+     "length": 1000,
+     "@Common.Label": "Description"
+    },
+    "code": {
+     "key": true,
+     "type": "cds.String",
+     "length": 3,
+     "notNull": true,
+     "@Common.Text": {
+      "=": "name"
+     },
+     "@Common.Label": "Currency Code"
+    }
+   }
+  },
+  "CATALOG_SERVICE.Statuses_texts": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "locale": {
+     "key": true,
+     "type": "cds.String",
+     "length": 14,
+     "notNull": true,
+     "@Common.Label": "Language Code",
+     "doc": "Type for a language code"
+    },
+    "code": {
+     "key": true,
+     "type": "cds.LargeString",
+     "notNull": true,
+     "@Validation.AllowedValues": [
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "Unscanned",
+       "Value": "Unscanned"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "Scanning",
+       "Value": "Scanning"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "Clean",
+       "Value": "Clean"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "Infected",
+       "Value": "Infected"
+      },
+      {
+       "$Type": "Validation.AllowedValue",
+       "@Core.SymbolicName": "Failed",
+       "Value": "Failed"
+      }
+     ]
+    },
+    "text": {
+     "type": "cds.String",
+     "length": 255
+    }
+   }
+  },
+  "CATALOG_SERVICE.return_CatalogService_submitOrder": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "stock": {
+     "type": "cds.Integer"
+    }
+   }
+  },
+  "CATALOG_SERVICE": {
+   "kind": "service",
+   "@cds.external": true
+  }
+ }
+}
