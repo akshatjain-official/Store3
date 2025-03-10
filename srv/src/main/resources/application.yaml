@@ -5,6 +5,12 @@ spring:
 cds:
   data-source.auto-config.enabled: false
   outbox-service.enabled: true
+  odata-v4:
+    endpoint:
+      path: /
+  remote.services:
+    - name: CATALOG_SERVICE
+      model: CATALOG_SERVICE
 
 
 logging:
