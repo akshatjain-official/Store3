@@ -4,3 +4,15 @@ spring:
   web.resources.static-locations: file:./app/
 cds:
   data-source.auto-config.enabled: false
+  outbox-service.enabled: true
+
+
+logging:
+  level:
+    root: warn
+    com.sap.apm: ${LOGGING_LEVEL_APM:debug}
+    com.sap.cds.odata.v4: ${LOGGING_LEVEL_CDS:debug}
+    com.sap.cds.handlers: ${LOGGING_LEVEL_CDS:debug}
+    com.sap.cds.multitenancy: ${LOGGING_LEVEL_CDS:debug}
+    com.sap.cds.persistence.sql: ${LOGGING_LEVEL_CDS:debug}
+    com.sap.xsa: ${LOGGING_LEVEL_XSA:warn}
