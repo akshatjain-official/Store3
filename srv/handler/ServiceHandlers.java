@@ -21,7 +21,7 @@ public class ServiceHandlers implements EventHandler{
     @Autowired
     @Qualifier(CatalogService_.CDS_NAME)
     RemoteService remoteService;
-    @On(entity = LocalAttachment_.CDS_NAME)
+    @On(entity = CatalogService_.BOOKS)
     Result readSuppliers(CdsReadEventContext context){
         return remoteService.run(context.getCqn());
     }

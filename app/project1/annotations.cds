@@ -1,4 +1,4 @@
-using Storeservice as service from '../../srv/store-service';
+using Storeservice as service from '../../srv/storeservice';
 annotate service.Notebooks with @(
     UI.FieldGroup #GeneratedGroup : {
         $Type : 'UI.FieldGroupType',
