@@ -3,14 +3,17 @@ spring:
   sql.init.schema-locations: classpath:schema-h2.sql
   web.resources.static-locations: file:./app/
 cds:
-  data-source.auto-config.enabled: false
-  outbox-service.enabled: true
   odata-v4:
     endpoint:
       path: /
   remote.services:
-    - name: CATALOG_SERVICE
+    CATALOG_SERVICE:
+      type: "odata-v4"
       model: CATALOG_SERVICE
+      destination:
+        name: "bookshop2"
+  data-source.auto-config.enabled: false
+  outbox-service.enabled: false
 
 
 logging:
