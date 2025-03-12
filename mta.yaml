@@ -12,6 +12,7 @@ modules:
     SPRING_PROFILES_ACTIVE: cloud,sandbox
   requires:
   - name: store-destination
+  - name: store-connectivity
   provides:
   - name: srv-api
     properties:
@@ -72,6 +73,11 @@ resources:
     service: html5-apps-repo
     service-name: store-html5-service
     service-plan: app-host
+- name: store-connectivity
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: connectivity
+    service-plan: lite
 parameters:
   deploy_mode: html5-repo
   enable-parallel-deployments: true

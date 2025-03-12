@@ -1,13 +1,13 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Mon Mar 10 2025 11:12:25 GMT+0530 (India Standard Time)|
+|**Generation Date and Time**<br>Wed Mar 12 2025 14:20:36 GMT+0530 (India Standard Time)|
 |**App Generator**<br>@sap/generator-fiori-elements|
 |**App Generator Version**<br>1.16.1|
 |**Generation Platform**<br>Visual Studio Code|
 |**Template Used**<br>List Report Page V4|
 |**Service Type**<br>Local Cap|
-|**Service URL**<br>http://localhost:4004/odata/v4/Storeservice/|
+|**Service URL**<br>http://localhost:4004/storeservice/|
 |**Module Name**<br>project1|
 |**Application Title**<br>App Title|
 |**Namespace**<br>|
