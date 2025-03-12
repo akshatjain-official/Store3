@@ -1,5 +1,6 @@
 package com.sap.cds.handler;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -40,5 +41,8 @@ public class storeservice_handler implements EventHandler{
         System.out.println("SERVICE HANDLER IS RUNNING #201");
 
     }
-
+    @PostConstruct
+    public void init() {
+        System.out.println("VCAP_SERVICES: " + System.getenv("VCAP_SERVICES"));
+    }
 }

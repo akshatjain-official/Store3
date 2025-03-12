@@ -61,6 +61,20 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.sap.cds</groupId>
+			<artifactId>cds-integration-cloud-sdk</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sap.cloud.sdk.cloudplatform</groupId>
+			<artifactId>connectivity-destination-service</artifactId>
+			<version>5.16.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sap.cloud.sdk</groupId>
+			<artifactId>sdk-core</artifactId>
+			<version>5.16.0</version>
+		</dependency>
 	</dependencies>
 	
 
