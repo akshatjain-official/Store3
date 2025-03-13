@@ -63,7 +63,7 @@ annotate service.Notebooks with @(
     ],
 );
 
-annotate Storeservice.Notebooks with @odata.draft.enabled;
+annotate service.Notebooks with @odata.draft.enabled;
 
 annotate service.Notebooks with {
     writer @Common.ValueList : {

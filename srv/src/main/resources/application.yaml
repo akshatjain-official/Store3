@@ -11,7 +11,10 @@ cds:
       type: "odata-v4"
       model: CATALOG_SERVICE
       destination:
-        name: "demoapp"
+        name: "bookshopdest"
+        properties:
+          url: "https://sdmgoogleworkspacedev-developcap-demoappjava-srv.cfapps.eu12.hana.ondemand.com"
+          authentication: TokenForwarding
   data-source.auto-config.enabled: false
   outbox-service.enabled: false
 
