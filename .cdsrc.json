@@ -4,6 +4,12 @@
     },
     "requires": {
         "connectivity": true,
-        "destinations": true
+        "destinations": true,
+        "auth": "xsuaa",
+        "[production]": {
+            "connectivity": true,
+            "auth": "xsuaa",
+            "destinations": true
+        }
     }
 }

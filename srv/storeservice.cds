@@ -1,8 +1,10 @@
 using {sap.cap.store as my} from '../db/schema';
 using { CATALOG_SERVICE as external } from './external/CATALOG_SERVICE';
 
-service storeservice {
-  entity Notebooks as projection on my.Notebook;
+service storeservice{
+  @requires : 'authenticated-user'
+  entity Notebooks as projection on my.Notebook ;
+  @requires : 'admin'
   entity Writers as projection on my.Writer;
   entity localbooks as projection on external.Books;
   entity localattachment as projection on external.Books_attachments;

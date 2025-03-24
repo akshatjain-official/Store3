@@ -21,6 +21,9 @@
         "credentials": {
           "uri": "https://sdmgoogleworkspacedev-developcap-demoappjava-srv.cfapps.eu12.hana.ondemand.com/odata/v4/CatalogService/"
         }
+      },
+      "[production]": {
+        "auth": "jwt"
       }
     }
   },

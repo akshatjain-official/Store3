@@ -1,5 +1,5 @@
 spring:
-  config.activate.on-profile: default
+  config.activate.on-profile: hybrid
   sql.init.schema-locations: classpath:schema-h2.sql
   web.resources.static-locations: file:./app/
 cds:
@@ -13,9 +13,8 @@ cds:
       destination:
         properties:
           url: "https://sdmgoogleworkspacedev-i528798-demoappjava-srv.cfapps.eu12.hana.ondemand.com"
+          suffix: "/odata/v4"
           authentication: TokenForwarding
-        suffix: /odata/v4/
-        service: CatalogService
   data-source.auto-config.enabled: false
   outbox-service.enabled: false
 
