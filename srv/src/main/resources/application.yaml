@@ -8,14 +8,15 @@ cds:
       path: /
   remote.services:
     CATALOG_SERVICE:
-      type: "odata-v4"
-      model: CATALOG_SERVICE
       destination:
         properties:
-          url: "https://sdmgoogleworkspacedev-i528798-demoappjava-srv.cfapps.eu12.hana.ondemand.com"
+          url: https://sdmgoogleworkspacedev-i528798-demoappjava-srv.cfapps.eu12.hana.ondemand.com
           authentication: TokenForwarding
+        name: Catalog
         suffix: /odata/v4/
         service: CatalogService
+        type: odata-v4
+        
   data-source.auto-config.enabled: false
   outbox-service.enabled: false
 
@@ -28,4 +29,6 @@ logging:
     com.sap.cds.handlers: ${LOGGING_LEVEL_CDS:debug}
     com.sap.cds.multitenancy: ${LOGGING_LEVEL_CDS:debug}
     com.sap.cds.persistence.sql: ${LOGGING_LEVEL_CDS:debug}
+    com.sap.cds.security.authorization: DEBUG
+    com.sap.cds.security.authentication: DEBUG
     com.sap.xsa: ${LOGGING_LEVEL_XSA:warn}

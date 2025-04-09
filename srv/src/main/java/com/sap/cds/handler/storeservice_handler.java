@@ -43,6 +43,6 @@ public class storeservice_handler implements EventHandler{
    }
    @PostConstruct
    public void init() {
-       System.out.println("VCAP_SERVICES: " + System.getenv("VCAP_SERVICES"));
+        System.out.println("VCAP_SERVICES: " + System.getenv("VCAP_SERVICES"));
    }
 }

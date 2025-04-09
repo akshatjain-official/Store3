@@ -3,19 +3,17 @@ spring:
   sql.init.schema-locations: classpath:schema-h2.sql
   web.resources.static-locations: file:./app/
 cds:
-  odata-v4:
-    endpoint:
-      path: /
   remote.services:
     CATALOG_SERVICE:
-      type: "odata-v4"
-      model: CATALOG_SERVICE
+      http:
+        service: CatalogService
+        suffix: /odata/v4/
       destination:
+        type: "odata-v4"
         properties:
-          url: "https://sdmgoogleworkspacedev-i528798-demoappjava-srv.cfapps.eu12.hana.ondemand.com"
-          suffix: "/odata/v4"
+          url: https://sdmgoogleworkspacedev-i528798-demoappjava-srv.cfapps.eu12.hana.ondemand.com
           authentication: TokenForwarding
-  data-source.auto-config.enabled: false
+  data-source.auto-config.enabled: true
   outbox-service.enabled: false
 
 
@@ -27,4 +25,6 @@ logging:
     com.sap.cds.handlers: ${LOGGING_LEVEL_CDS:debug}
     com.sap.cds.multitenancy: ${LOGGING_LEVEL_CDS:debug}
     com.sap.cds.persistence.sql: ${LOGGING_LEVEL_CDS:debug}
+    com.sap.cds.security.authorization: DEBUG
+    com.sap.cds.security.authentication: DEBUG
     com.sap.xsa: ${LOGGING_LEVEL_XSA:warn}
