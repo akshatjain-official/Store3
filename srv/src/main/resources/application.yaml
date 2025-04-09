@@ -3,19 +3,16 @@ spring:
   sql.init.schema-locations: classpath:schema-h2.sql
   web.resources.static-locations: file:./app/
 cds:
-  odata-v4:
-    endpoint:
-      path: /
   remote.services:
     CATALOG_SERVICE:
+      http:
+        service: CatalogService
+        suffix: /odata/v4/
       destination:
+        type: "odata-v4"
         properties:
           url: https://sdmgoogleworkspacedev-i528798-demoappjava-srv.cfapps.eu12.hana.ondemand.com
           authentication: TokenForwarding
-        name: Catalog
-        suffix: /odata/v4/
-        service: CatalogService
-        type: odata-v4
         
   data-source.auto-config.enabled: false
   outbox-service.enabled: false

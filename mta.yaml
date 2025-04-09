@@ -16,7 +16,7 @@ modules:
       - name: store-auth
       - name: catalog-api
         properties:
-         Catalog: "https://sdmgoogleworkspacedev-i528798-demoappjava-srv.cfapps.eu12.hana.ondemand.com/odata/v4/CatalogService"
+         Catalog: "https://sdmgoogleworkspacedev-i528798-demoappjava-srv.cfapps.eu12.hana.ondemand.com"
     provides:
       - name: srv-api
         properties:
