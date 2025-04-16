@@ -1,2 +1,4 @@
 
-using from './project1/annotations';
+using from './notebook_writer/annotations';
+
+using from './localbook_attach/annotations';
