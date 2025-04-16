@@ -5,7 +5,7 @@
     {
       "source": "^/odata/(.*)$",
       "target": "/odata/$1",
-      "destination": "l_b",
+      "destination": "l_b_dist",
       "authenticationType": "xsuaa",
       "csrfProtection": false
     },

@@ -35,7 +35,8 @@
     "app/project1",
     "app/project1",
     "app/notebook_writer",
-    "app/localbook_attach"
+    "app/localbook_attach",
+    "app/local_book"
   ],
   "scripts": {
     "undeploy": "cf undeploy store --delete-services --delete-service-keys --delete-service-brokers",

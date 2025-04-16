@@ -44,24 +44,9 @@ modules:
       build-result: resources
       requires:
         - artifacts:
-            - notebookwriter.zip
-          name: notebookwriter
-          target-path: resources/
-        - artifacts:
             - localbookattach.zip
           name: localbookattach
           target-path: resources/
-  - name: notebookwriter
-    type: html5
-    path: app/notebook_writer
-    build-parameters:
-      build-result: dist
-      builder: custom
-      commands:
-        - npm install
-        - npm run build:cf
-      supported-platforms:
-        []
   - name: localbookattach
     type: html5
     path: app/localbook_attach
@@ -73,26 +58,31 @@ modules:
         - npm run build:cf
       supported-platforms:
         []
-
   - name: store
     type: approuter.nodejs
     path: app/router
-    parameters:
-      keep-existing-routes: true
-      disk-quota: 256M
-      memory: 256M
     requires:
       - name: srv-api
         group: destinations
         properties:
-          name: srv-api # must be used in xs-app.json as well
-          url: ~{srv-url}
           forwardAuthToken: true
+          name: srv-api
+          url: ~{srv-url}
       - name: demoappjava-public-uaa
+      - name: store-destination
+        group: destinations
+        properties:
+          forwardAuthToken: false
+          name: ui5
+          url: https://ui5.sap.com
     provides:
       - name: app-api
         properties:
           url: ${default-url}
+    parameters:
+      disk-quota: 256M
+      keep-existing-routes: true
+      memory: 256M
 resources:
   - name: store-destination
     type: org.cloudfoundry.managed-service

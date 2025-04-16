@@ -62,6 +62,12 @@ annotate service.localbooks with @(
             Label : 'General Information',
             Target : '@UI.FieldGroup#GeneratedGroup',
         },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID     : 'AttachmentsFacet',
+            Label : '{i18n>attachments}',
+            Target: 'attachments/@UI.LineItem'
+        }
     ],
     UI.LineItem : [
         {

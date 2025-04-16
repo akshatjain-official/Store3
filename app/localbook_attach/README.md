@@ -1,15 +1,15 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Wed Apr 09 2025 12:46:00 GMT+0530 (India Standard Time)|
+|**Generation Date and Time**<br>Wed Apr 16 2025 15:23:05 GMT+0530 (India Standard Time)|
 |**App Generator**<br>@sap/generator-fiori-elements|
 |**App Generator Version**<br>1.16.1|
 |**Generation Platform**<br>Visual Studio Code|
 |**Template Used**<br>List Report Page V4|
 |**Service Type**<br>Local Cap|
 |**Service URL**<br>http://localhost:4004/odata/v4/storeservice/|
-|**Module Name**<br>localbook_attach|
-|**Application Title**<br>Remote CAP Application|
+|**Module Name**<br>local_book|
+|**Application Title**<br>App Title|
 |**Namespace**<br>|
 |**UI5 Theme**<br>sap_horizon|
 |**UI5 Version**<br>1.134.1|
@@ -19,7 +19,7 @@
 |**Main Entity**<br>localbooks|
 |**Navigation Entity**<br>None|
 
-## localbook_attach
+## local_book
 
 An SAP Fiori application.
 
@@ -27,7 +27,7 @@ An SAP Fiori application.
 
 -   This app has been generated using the SAP Fiori tools - App Generator, as part of the SAP Fiori tools suite.  In order to launch the generated app, simply start your CAP project (```mvn spring-boot:run```) and navigate to the following location in your browser:
 
-http://localhost:8080/localbook_attach/webapp/index.html
+http://localhost:8080/local_book/webapp/index.html
 
 #### Pre-requisites:
 

@@ -3,7 +3,7 @@ sap.ui.define(
     function (Component) {
         "use strict";
 
-        return Component.extend("localbookattach.Component", {
+        return Component.extend("localbook.Component", {
             metadata: {
                 manifest: "json"
             }

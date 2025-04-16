@@ -1,15 +1,15 @@
 sap.ui.require(
     [
         'sap/fe/test/JourneyRunner',
-        'localbookattach/test/integration/FirstJourney',
-		'localbookattach/test/integration/pages/localbooksList',
-		'localbookattach/test/integration/pages/localbooksObjectPage'
+        'localbook/test/integration/FirstJourney',
+		'localbook/test/integration/pages/localbooksList',
+		'localbook/test/integration/pages/localbooksObjectPage'
     ],
     function(JourneyRunner, opaJourney, localbooksList, localbooksObjectPage) {
         'use strict';
         var JourneyRunner = new JourneyRunner({
             // start index.html in web folder
-            launchUrl: sap.ui.require.toUrl('localbookattach') + '/index.html'
+            launchUrl: sap.ui.require.toUrl('localbook') + '/index.html'
         });
 
        
