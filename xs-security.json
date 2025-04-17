@@ -1,5 +1,5 @@
 {
-	"xsappname": "demoappjava-sdmgoogleworkspacedev-i528798-2",
+	"xsappname": "store-sdmgoogleworkspacedev-i528798",
 	"tenant-mode": "dedicated",
 	"scopes": [
 		{
@@ -17,5 +17,10 @@
 			],
 			"attribute-references": []
 		}
-	]
+	],
+	"oauth2-configuration": {
+		"redirect-uris": [
+			"http://localhost:8080/"
+		]
+	}
 }
