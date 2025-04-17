@@ -8,7 +8,7 @@ sap.ui.define(['sap/fe/test/ListReport'], function(ListReport) {
 
     return new ListReport(
         {
-            appId: 'localbook',
+            appId: 'localbookattach',
             componentId: 'localbooksList',
             contextPath: '/localbooks'
         },

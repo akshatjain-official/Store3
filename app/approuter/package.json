@@ -1,0 +1,11 @@
+{
+  "name": "approuter",
+  "description": "JAVA application router for CAP",
+  "dependencies": {
+  "@sap/approuter": "^16"
+  },
+  "scripts": {
+  "start": "node node_modules/@sap/approuter/approuter.js"
+  }
+}
+  

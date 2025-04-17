@@ -1,7 +1,7 @@
 {
     "_version": "1.65.0",
     "sap.app": {
-        "id": "localbook",
+        "id": "localbookattach",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -13,7 +13,7 @@
         "sourceTemplate": {
             "id": "@sap/generator-fiori:lrop",
             "version": "1.16.1",
-            "toolsId": "c8ab93bd-3885-4114-b121-b1674b7c0979"
+            "toolsId": "3dd85ea7-749c-4d10-a1b0-8876b8674d2c"
         },
         "dataSources": {
             "mainService": {
@@ -60,7 +60,7 @@
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
-                    "bundleName": "localbook.i18n.i18n"
+                    "bundleName": "localbookattach.i18n.i18n"
                 }
             },
             "": {
