@@ -13,13 +13,10 @@ modules:
     requires:
       - name: store-destination
       - name: store-connectivity
-      - name: demoappjava-public-uaa
+      - name: store-auth
       - name: catalog-api
         properties:
-          Catalog: https://sdmgoogleworkspacedev-i528798-demoappjava-srv.cfapps.eu12.hana.ondemand.com
-      - name: app-api
-        properties:
-          CDS_MULTITENANCY_APPUI_URL: ~{url}
+         Catalog: "https://sdmgoogleworkspacedev-i528798-demoappjava-srv.cfapps.eu12.hana.ondemand.com"
     provides:
       - name: srv-api
         properties:
@@ -44,16 +41,12 @@ modules:
       build-result: resources
       requires:
         - artifacts:
-            - notebookwriter.zip
-          name: notebookwriter
+            - project1.zip
+          name: project1
           target-path: resources/
-        - artifacts:
-            - localbookattach.zip
-          name: localbookattach
-          target-path: resources/
-  - name: notebookwriter
+  - name: project1
     type: html5
-    path: app/notebook_writer
+    path: app/project1
     build-parameters:
       build-result: dist
       builder: custom
@@ -62,37 +55,6 @@ modules:
         - npm run build:cf
       supported-platforms:
         []
-  - name: localbookattach
-    type: html5
-    path: app/localbook_attach
-    build-parameters:
-      build-result: dist
-      builder: custom
-      commands:
-        - npm install
-        - npm run build:cf
-      supported-platforms:
-        []
-
-  - name: store
-    type: approuter.nodejs
-    path: app/router
-    parameters:
-      keep-existing-routes: true
-      disk-quota: 256M
-      memory: 256M
-    requires:
-      - name: srv-api
-        group: destinations
-        properties:
-          name: srv-api # must be used in xs-app.json as well
-          url: ~{srv-url}
-          forwardAuthToken: true
-      - name: demoappjava-public-uaa
-    provides:
-      - name: app-api
-        properties:
-          url: ${default-url}
 resources:
   - name: store-destination
     type: org.cloudfoundry.managed-service
@@ -121,15 +83,15 @@ resources:
     parameters:
       service: connectivity
       service-plan: lite
-  - name: demoappjava-public-uaa
+  - name: store-auth
     type: org.cloudfoundry.managed-service
     parameters:
-      config:
-        tenant-mode: dedicated
-        xsappname: demoappjava-sdmgoogleworkspacedev-i528798-2
-      path: ./xs-security.json
       service: xsuaa
       service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: store-${org}-${space}
+        tenant-mode: dedicated
   - name: catalog-api
     type: configuration
     parameters:
