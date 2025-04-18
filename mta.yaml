@@ -17,8 +17,12 @@ modules:
       - name: store-connectivity
       - name: demoappjava-public-uaa
       - name: catalog-api
+      - name: sdm
         properties:
-         Catalog: "https://sdmgoogleworkspacedev-i528798-demoappjava-srv.cfapps.eu12.hana.ondemand.com"
+          Catalog: "https://sdmgoogleworkspacedev-i528798-demoappjava-srv.cfapps.eu12.hana.ondemand.com"
+      - name: app-api
+        properties:
+          CDS_MULTITENANCY_APPUI_URL: ~{url}
     provides:
       - name: srv-api
         properties:
@@ -32,6 +36,26 @@ modules:
       builder: custom
       commands:
         - mvn clean package -DskipTests=true
+
+  - name: store
+    type: approuter.nodejs
+    path: app/router
+    parameters:
+      keep-existing-routes: true
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: demoappjava-public-uaa
+    provides:
+      - name: app-api
+        properties:
+          url: ${default-url}
 resources:
   - name: store-destination
     type: org.cloudfoundry.managed-service
@@ -68,3 +92,8 @@ resources:
     parameters:
       provider-id: demoappjava:catalog-api
       provider-nid: mta
+  - name: sdm
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: sdm
+      service-plan: standard
