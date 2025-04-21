@@ -72,16 +72,6 @@ annotate service.localbooks with @(
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
-            Label : 'createdAt',
-            Value : createdAt,
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : 'modifiedAt',
-            Value : modifiedAt,
-        },
-        {
-            $Type : 'UI.DataField',
             Label : 'title',
             Value : title,
         },
@@ -94,6 +84,16 @@ annotate service.localbooks with @(
             $Type : 'UI.DataField',
             Label : 'author',
             Value : author,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : price,
+            Label : 'price',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : stock,
+            Label : 'stock',
         },
     ],
 );
