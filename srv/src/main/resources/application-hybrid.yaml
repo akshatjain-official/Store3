@@ -4,9 +4,9 @@ spring:
   web.resources.static-locations: file:./app/
 cds:
   remote.services:
-    CATALOG_SERVICE:
+    ADMIN_SERVICE:
       http:
-        service: CatalogService
+        service: AdminService
         suffix: /odata/v4/
       destination:
         type: "odata-v4"

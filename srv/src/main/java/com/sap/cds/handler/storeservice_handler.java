@@ -17,6 +17,7 @@ import com.sap.cds.services.handler.annotations.ServiceName;
 import com.sap.cds.services.persistence.PersistenceService;
 
 import cds.gen.catalog_service.CatalogService_;
+import cds.gen.admin_service.AdminService_;
 import cds.gen.storeservice.Storeservice_;
 import cds.gen.storeservice.Localattachment_;
 import cds.gen.storeservice.Localbooks_;
@@ -26,7 +27,7 @@ import cds.gen.storeservice.Notebooks_;
 @ServiceName(Storeservice_.CDS_NAME)
 public class storeservice_handler implements EventHandler{
    @Autowired
-   @Qualifier(CatalogService_.CDS_NAME)
+   @Qualifier(AdminService_.CDS_NAME)
    RemoteService remoteService;
    @On(entity = {Localbooks_.CDS_NAME,Localattachment_.CDS_NAME})
    Result readSuppliers(CdsReadEventContext context){

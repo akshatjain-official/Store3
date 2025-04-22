@@ -1,14 +1,16 @@
 {
   "authenticationMethod": "route",
   "logout": {
-  "logoutEndpoint": "/do/logout"
+    "logoutEndpoint": "/do/logout"
   },
-  "routes": [{
-  "source": "^/(.*)$",
-  "target": "$1",
-  "authenticationType": "xsuaa",
-  "destination": "srv-api",
-  "csrfProtection": false
-  }]
-  }
-  
+  "routes": [
+    {
+      "source": "^/(.*)$",
+      "target": "$1",
+      "authenticationType": "xsuaa",
+      "destination": "srv-api",
+      "csrfProtection": false
+    }
+  ],
+  "welcomeFile": "app/index.html"
+}
