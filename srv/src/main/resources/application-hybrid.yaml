@@ -13,6 +13,15 @@ cds:
         properties:
           url: https://sdmgoogleworkspacedev-i528798-demoappjava-srv.cfapps.eu12.hana.ondemand.com
           authentication: TokenForwarding
+    ADMIN_SERVICE:
+      http:
+        service: AdminService
+        suffix: /odata/v4/
+      destination:
+        type: "odata-v4"
+        properties:
+          url: https://sdmgoogleworkspacedev-i528798-demoappjava-srv.cfapps.eu12.hana.ondemand.com
+          authentication: TokenForwarding
   data-source.auto-config.enabled: true
   outbox-service.enabled: false
 

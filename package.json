@@ -26,6 +26,13 @@
       },
       "[production]": {
         "auth": "jwt"
+      },
+      "ADMIN_SERVICE": {
+        "kind": "odata",
+        "model": "srv/external/ADMIN_SERVICE",
+        "credentials": {
+          "uri": "https://sdmgoogleworkspacedev-developcap-demoappjava-srv.cfapps.eu12.hana.ondemand.com/odata/v4/AdminService/"
+        }
       }
     }
   },
