@@ -18,7 +18,6 @@ import com.sap.cds.services.persistence.PersistenceService;
 
 import cds.gen.catalog_service.CatalogService_;
 import cds.gen.storeservice.Storeservice_;
-import cds.gen.storeservice.Localattachment_;
 import cds.gen.storeservice.Localbooks_;
 import cds.gen.storeservice.Notebooks_;
 
@@ -28,7 +27,7 @@ public class storeservice_handler implements EventHandler{
    @Autowired
    @Qualifier(CatalogService_.CDS_NAME)
    RemoteService remoteService;
-   @On(entity = {Localbooks_.CDS_NAME,Localattachment_.CDS_NAME})
+   @On(entity = {Localbooks_.CDS_NAME})
    Result readSuppliers(CdsReadEventContext context){
        System.out.println("SERVICE HANDLER IS RUNNING #102");
        return remoteService.run(context.getCqn());
