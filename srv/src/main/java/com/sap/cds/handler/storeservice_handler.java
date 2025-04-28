@@ -24,25 +24,28 @@ import cds.gen.storeservice.Notebooks_;
 
 @Component
 @ServiceName(Storeservice_.CDS_NAME)
-public class storeservice_handler implements EventHandler{
-   @Autowired
-   @Qualifier(CatalogService_.CDS_NAME)
-   RemoteService remoteService;
-   @On(entity = {Localbooks_.CDS_NAME,Localattachment_.CDS_NAME})
-   Result readSuppliers(CdsReadEventContext context){
-       System.out.println("SERVICE HANDLER IS RUNNING #102");
-       return remoteService.run(context.getCqn());
-   }
+public class storeservice_handler implements EventHandler {
+    @Autowired
+    @Qualifier(CatalogService_.CDS_NAME)
+    RemoteService remoteService;
 
-   @Autowired
-   PersistenceService persistenceService;
-   @Before(event = {CqnService.EVENT_READ},entity= Notebooks_.CDS_NAME)
-   public void validation(EventContext context){
-       System.out.println("SERVICE HANDLER IS RUNNING #201");
+    @On(entity = { Localbooks_.CDS_NAME, Localattachment_.CDS_NAME })
+    Result readSuppliers(CdsReadEventContext context) {
+        System.out.println("SERVICE HANDLER IS RUNNING #102");
+        return remoteService.run(context.getCqn());
+    }
 
-   }
-   @PostConstruct
-   public void init() {
+    @Autowired
+    PersistenceService persistenceService;
+
+    @Before(event = { CqnService.EVENT_READ }, entity = Notebooks_.CDS_NAME)
+    public void validation(EventContext context) {
+        System.out.println("SERVICE HANDLER IS RUNNING #201");
+
+    }
+
+    @PostConstruct
+    public void init() {
         System.out.println("VCAP_SERVICES: " + System.getenv("VCAP_SERVICES"));
-   }
+    }
 }
